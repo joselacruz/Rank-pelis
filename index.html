@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RankPelis</title>
+    <link rel="stylesheet" href="./styles/style.css">
+</head>
+<body>
+ <header class="header"> 
+    <figure class="header-icon">
+        <img src="./src/img/Frame1.svg" alt="logo de RankPelis">
+    </figure>
+    <div class="header-nav">
+        <div class="nav-info-container">
+            <span class="nav-icon nav-icon--home" id="iconHome"></span>
+            <p>Home</p>
+        </div>
+        <div class="nav-info-container">
+            <span class="nav-icon nav-icon-category" id="category-icon"></span>
+            <p>Categorias</p>
+            <ul class="category-container inactive">
+           
+            </ul>
+        </div>
+        <div class="nav-info-container">
+            <span class="nav-icon nav-icon--series"></span>
+            <p>Series</p>
+        </div>
+
+        <div class="header-button-search">
+            <div>
+                <span id="iconSearch"></span>
+                <input type="text" placeholder="Buscar pelicula" id="input-search"> 
+           </input>
+            </div>
+            
+        </div>
+    </div>
+
+ </header>
+ <main>
+    <section class="pelis-container-tendencias pelis-container">
+        <h2>Tendencias</h2>
+        <button>ver mas</button>
+        <div class="flex-card-pelis">
+            <!-- <article class="pelis-card">
+                <img src="./src/img/usar.jpg" alt="">
+                <div class="pelis-card-raking">
+                    <span></span>
+                    <p>7.0</p>
+                </div>
+            </article> -->
+        </div>
+    </section>
+    <section class="pelis-container-gratis pelis-container">
+        <h2>Ver gratis</h2>
+        <button>ver mas</button>
+        <div class="flex-card-pelis">
+            <!-- <article class="pelis-card">
+                <img src="./src/img/lahuerfana.png" alt="">
+                <div class="pelis-card-raking">
+                    <span></span>
+                    <p>6.0</p>
+                </div>
+            </article> -->
+          
+         
+        </div>
+    </section>
+    <section class="alternative-container">
+        <span class="alternative-container-logo inactive"></span>
+        <h2 id="alternative-container-title"></h2>
+        <div class="flex-card-pelis">
+            <!-- <article class="pelis-card">
+                <img src="./src/img/lahuerfana.png" alt="">
+                <div class="pelis-card-raking">
+                    <span></span>
+                    <p>6.0</p>
+                </div>
+            </article> -->
+       
+        </div>
+    </section>
+    <section class="movie-details"> 
+        <figure> 
+            <img src="" alt="Imagen pelicula ">
+        </figure>
+        <h2>El Perro Samurai (2022)</h2>
+        <div></div>
+    </section>
+ </main>
+<footer>
+    <p>2022 @joselacruz | Todos los derechos reservados.</p>
+</footer>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script src="./src/node.js"></script>
+ <script src="./src/secrets.js"></script>
+ <script src="./src/main.js"></script>
+ <script src="./src/navigation.js"></script>
+
+</body>
+</html>

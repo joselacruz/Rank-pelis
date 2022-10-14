@@ -1,0 +1,24 @@
+{
+  "name": "rank-pelis",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.html",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/joselacruz/Rank-pelis.git"
+  },
+  "author": "joselacruzperez@gmail.com",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/joselacruz/Rank-pelis/issues"
+  },
+  "homepage": "https://github.com/joselacruz/Rank-pelis#readme",
+  "dependencies": {
+    "axios": "^1.1.2"
+  }
+
+
+}
