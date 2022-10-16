@@ -5,9 +5,10 @@ logoBack.addEventListener("click", clickLogoBack)
 function navigator () {
     console.log({location});
     if(location.hash.startsWith('#home')) {
-      homePage()
-      getUpcomin();
-      getTredingMoviesPreview();
+      homePage();
+      getTredingMoviesPreview(6);
+      getUpcomin(6);
+     
     }
     else if (location.hash.startsWith('#search=')) {
      searchPage();
@@ -33,11 +34,9 @@ function navigator () {
     containerPelisUpcoming.classList.remove('inactive');
     containerPelisTreding.classList.remove('inactive');
     alternativeContainer.classList.add('inactive');
-   
-
-  
-  
-    
+    movieDetail.classList.add('inactive');
+    nav.classList.remove('header-mobile');   
+    main.classList.remove('main-mobile');
 }
 
 function searchPage() {
@@ -45,6 +44,9 @@ function searchPage() {
     alternativeContainer.classList.remove('inactive');
     containerPelisUpcoming.classList.add('inactive');
     containerPelisTreding.classList.add('inactive');
+    movieDetail.classList.add('inactive');
+    nav.classList.remove('header-mobile');
+    main.classList.remove('main-mobile');
 
    const [_, query] = location.hash.split('=');
    logoBack.classList.remove('inactive');
@@ -56,24 +58,33 @@ console.log("Por FUERA");
 }
 
 function moviePage() {
-    console.log("Movie!!");
-const [_, movieId] = location.hash.split('=');
+movieViewContainer.classList.remove('inactive');
 alternativeContainer.classList.add('inactive');
 containerPelisUpcoming.classList.add('inactive');
 containerPelisTreding.classList.add('inactive');
-console.log(movieId);
+main.classList.add('main-mobile');
+nav.classList.add('header-mobile');
+
+const [_, movieId] = location.hash.split('=');
 getMovieById(movieId);
+
+
 }
+
 function categoryPage() {
+   
     alternativeContainer.classList.remove('inactive');
     containerPelisUpcoming.classList.add('inactive');
     containerPelisTreding.classList.add('inactive');
+    movieDetail.classList.add('inactive');
+    nav.classList.remove('header-mobile');
+    main.classList.remove('main-mobile');
 
    const [_, categoryDAta] =  location.hash.split('=');
    const [categoryId, categoryName] = categoryDAta.split('-'); 
    const nameCategoryFinal = categoryName.split("%20").join(" ");
     getMoviesByCategory(categoryId,nameCategoryFinal);
-
+    
 }
 
 
@@ -98,3 +109,38 @@ iconHome.addEventListener("click", () => {
 function clickLogoBack() {
     history.back();
  }
+//  var mediaqueryList = window.matchMedia("(max-width: 700px)");
+//  mediaqueryList.addListener( function(EventoMediaQueryList) {
+//       console.log("se ejecuta")
+//  });
+
+ movieBackIcon.addEventListener("click", () => {
+    history.back();
+}); 
+
+btnViewMoreUpcoming.addEventListener("click",  async () => {
+
+   
+    
+    if(btnViewMoreUpcoming.textContent == 'ver mas') {
+        await getUpcomin(20);
+        btnViewMoreUpcoming.textContent = 'ver menos';
+        window.scroll(0,300);
+       }
+       else{
+        getUpcomin(6);
+        btnViewMoreUpcoming.textContent = 'ver mas';
+       }
+});
+
+btnViewMoreTrends.addEventListener("click", () => {
+   if(btnViewMoreTrends.textContent == 'ver mas') {
+    getTredingMoviesPreview(20);
+    btnViewMoreTrends.textContent = 'ver menos';
+   }
+   else{
+    getTredingMoviesPreview(6);
+    btnViewMoreTrends.textContent = 'ver mas';
+   }
+
+});

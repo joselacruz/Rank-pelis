@@ -1,0 +1,144 @@
+.header{
+    display: flex;
+    flex-direction: column;
+    padding-block-end: 10px;
+    font-size: 1.8rem;
+}
+.header .header-icon{
+    width: 200px;
+}
+.header .header-nav .nav-info-container{
+    width: auto;
+    height: auto;
+    gap: 10px;
+}
+.nav-info-container .nav-icon{
+    background-size: 40px;
+    width: 40px;
+    height: 40px;
+ 
+}
+.header-button-search div span{
+    background-size: 40px;
+    width: 40px;
+    height: 40px;
+    background-repeat: no-repeat; 
+}
+.header-button-search input{
+    font-size: 1.8rem;
+}
+.header-button-search div{
+    width: 260px;
+    height: 60px;
+
+}
+.header-button-search input{
+    width: 80%;
+}
+.category-container{
+    width: 286px;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 13px;
+    gap: 24px;
+    top: 66px;
+}
+main{
+    margin-block-start: 171px;
+}
+.pelis-container h2{
+    margin-block-start: 45px;
+    font-size: 3rem;
+    line-height: 3.5rem;
+    text-align: center;
+}
+.flex-card-pelis .pelis-card{
+    height: auto;
+    width: 180px;
+    gap: 30px;
+}
+.pelis-container button{
+    font-size: 2rem;
+    border-radius: 3px;
+    top: 57px;
+    right: 29px;
+    width: 107px;
+    height: 50px;
+}
+.pelis-card .pelis-card-raking{
+    border-radius: 22px;
+    gap: 9px;
+    height: 67px;
+    width: auto;
+    right: 1px;
+}
+.pelis-card .pelis-card-raking p{
+    font-size: 2.5rem;
+}
+.pelis-card-raking span{
+    width: 52px;
+    height: 44px;
+}
+.alternative-container h2{
+    font-size: 3rem;
+    line-height: 3.5rem;
+}
+#movie-poster{
+    display: block;
+}
+.movie-img-container{
+    display: flex;
+    width: 100%;
+    height: 450px;
+    padding-inline-start: 2px;
+    /* padding-inline-end: 30px; */
+    padding-block-start: 10px;
+    
+}
+.movie-img-container img:nth-child(1){
+    width: 25%;
+    object-fit: cover;
+}
+.movie-img-container .movie-poster{
+    width: 70%;
+    object-fit: cover;
+}
+.movie-container-info{
+    max-width: 500px;
+    text-align: unset;
+}
+.movie-container-info h2{
+    font-size: 3rem;
+    line-height: 3.5rem;
+}
+.movie-container-info h3{
+    font-size: 2rem;
+    line-height: 2.5rem;
+}
+.movie-container-info .movie-sipnosis{
+    font-size: 1.8rem;
+    line-height: 2.3rem;
+    text-align: left;
+}
+.movie-stream-container .movie-stream-title{
+    width: 150px;
+    height: 50px;
+    font-size: 1.8rem;
+    line-height: 2.4rem;
+}
+.movie-stream-container h3 {
+    font-size: 2rem;
+    line-height: 2.5rem;
+}
+.movie-stream-container figure {
+    width: 80px;
+}
+.movie-stream-container figure img{
+    object-fit: cover;
+}
+.movie-container-similar{
+    padding-top: 20px;
+    padding-bottom: 50px;
+    margin-block-start: 30px;
+    background-image: linear-gradient(to left, #393e46, #333841, #2d333b, #282d36, #222831);
+}

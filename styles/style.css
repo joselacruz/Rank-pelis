@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,700&family=Roboto:wght@400;500;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,700&family=Roboto:wght@400;500;700&display=swap');
 /*Defaults*/
 *{
     margin: 0;
@@ -42,6 +42,7 @@ header{
     position: fixed;
     top: 0;
     z-index: 3;
+    padding-block-end: 5px;
 }
 
 header .header-icon{
@@ -164,6 +165,7 @@ filter: drop-shadow(2px 4px 4px rgba(1, 1, 1, 0.83));
 position: absolute;
 top: 19px;
 right: 11px;
+cursor: pointer;
 }
 
 .flex-card-pelis{
@@ -174,7 +176,9 @@ right: 11px;
     gap: 10px;
     flex-wrap: wrap;
 }
-
+.pelis-card{
+    cursor: pointer;
+}
 .flex-card-pelis .pelis-card{
     width: 101px;
     height: 144px;
@@ -262,5 +266,141 @@ margin: 0 auto;
 opacity: 0;
 }
 .inactive{
+    display: none;
+}
+
+.movie-details-icon{
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    background-image: url('../src/img/arrow-233.svg');
+    background-size: cover;
+    margin-inline-start: 19px;
+    position: absolute;
+    top: 6px;
+    cursor: pointer;
+}
+
+
+.movie-container-info {
+    padding-inline-start: 10px;
+    padding-inline-end: 10px;
+    margin-block-start: 20px;
+    position: relative;
+
+}
+
+
+.movie-container-info h2 {
+    color: var(--primary-title);
+    margin-block-end: 6px;
+    margin-block-start: 11px;
+    font-family: var(--font-titles);
+    font-weight: bold;
+    font-size: 2.5rem;
+    line-height: 2.9rem;
+}
+.movie-container-info h3 {
+    color: var(--secondary-title);
+    font-family: var(--font-titles);
+    font-size: 1.5rem;
+    line-height: 1.9rem;
+    font-weight: bold;
+    margin-block-end: 10px;
+} 
+.movie-container-info-rank {
+    position: absolute;
+    right: 10px;
+    top: 32px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+.movie-container-info-rank .movie-logo-rank{
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    background-image: url('../src/img/raking.svg');
+    background-size: cover;
+    background-size: contain;
+    background-repeat: no-repeat;
+
+}
+
+.movie-container-info-rank .movie-value-rank{
+    font-family: var(--font-titles);
+    font-size: 1.8rem;
+    font-weight: 700;
+    line-height: 2.1rem;
+    color: #FFD369;
+}
+
+.movie-container-info .movie-sipnosis{
+    margin-block-start: 20px;
+    color: var(--white-gray);
+    font-family: var(--font-parf);
+    font-size: 1.4rem;
+    line-height: 1.7rem;
+    font-weight: 500;
+    text-align: justify;
+}
+.movie-stream-container .movie-stream-title{
+    background-color: var(--primary-button);
+    width: 136px;
+    height: 44px;
+    margin: 10px auto 20px;
+    border-radius: 10px;
+    padding: 11px;
+    text-align: center;
+    color: var(--white-gray);
+    font-family: var(--font-titles);
+    font-size: 1.5rem;
+    line-height: 1.9rem;
+    font-weight: bold;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25), 0px 4px 4px rgba(0, 0, 0, 0.25);
+    cursor: pointer;
+}
+.movie-stream-container{
+ padding-inline-start: 10px;
+ padding-inline-end: 10px;
+ color: var(--secondary-title);
+ font-family: var(--font-titles);
+ font-size: 1.5rem;
+ line-height: 1.9rem;
+ font-weight: bold;
+ margin-block-end: 10px;
+}
+.movie-stream-container figure {
+    margin-block-start: 10px;
+    margin-block-end: 10px;
+    margin-inline-end: 10px;
+    width: 45px;
+    cursor: pointer;
+    display: inline-block;  
+}
+.movie-container-similar{
+    padding-inline-start: 10px;
+    padding-inline-end: 10px;
+    color: var(--primary-title);
+    font-size: 1.8rem;
+    line-height: 2rem;
+    font-weight: bold;
+    font-family: var(--font-titles);
+}
+.movie-container-similar .similar-img {
+   width: 100px;
+    height: 120px;
+    margin-block-start: 13px;
+    margin-inline-end: 10px;
+    display: inline-block;
+    object-fit: cover;
+    object-position: center;
+}
+.movie-container-similar .flex-card-pelis{
+    gap: 5px;
+
+}
+#movie-poster{
     display: none;
 }

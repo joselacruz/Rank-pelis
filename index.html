@@ -6,9 +6,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>RankPelis</title>
     <link rel="stylesheet" href="./styles/style.css">
+    <link rel="stylesheet" href="./styles/mobile.css" media="(max-width:700px)">
+    <link rel="stylesheet" href="./styles/ desktop.css" media="(min-width:900px)">
 </head>
 <body>
- <header class="header"> 
+ <header class="header" > 
     <figure class="header-icon">
         <img src="./src/img/Frame1.svg" alt="logo de RankPelis">
     </figure>
@@ -40,10 +42,10 @@
     </div>
 
  </header>
- <main>
+ <main class="main">
     <section class="pelis-container-tendencias pelis-container">
         <h2>Tendencias</h2>
-        <button>ver mas</button>
+        <button id="view-more-tendencias">ver mas</button>
         <div class="flex-card-pelis">
             <!-- <article class="pelis-card">
                 <img src="./src/img/usar.jpg" alt="">
@@ -54,9 +56,10 @@
             </article> -->
         </div>
     </section>
+   
     <section class="pelis-container-gratis pelis-container">
         <h2>Ver gratis</h2>
-        <button>ver mas</button>
+        <button id="view-more-upcoming">ver mas</button>
         <div class="flex-card-pelis">
             <!-- <article class="pelis-card">
                 <img src="./src/img/lahuerfana.png" alt="">
@@ -69,6 +72,8 @@
          
         </div>
     </section>
+
+
     <section class="alternative-container">
         <span class="alternative-container-logo inactive"></span>
         <h2 id="alternative-container-title"></h2>
@@ -81,15 +86,51 @@
                 </div>
             </article> -->
        
-        </div>
+        
     </section>
+
+
     <section class="movie-details"> 
-        <figure> 
-            <img src="" alt="Imagen pelicula ">
-        </figure>
-        <h2>El Perro Samurai (2022)</h2>
-        <div></div>
+        <span class="movie-details-icon"></span>
+        <div class="movie"> 
+      <figure>
+            <img src="./src/img/Frame 2.png" alt="">
+    </figure>
+       
+        <div class="movie-container-info">
+
+            <h2>El Perro Samurai (2022)</h2>
+            <h3>Acccion / Animacion</h3>
+            <div class="movie-container-info-rank">
+                <span class="movie-logo-rank"> </span>
+                <span class="movie-value-rank">7.0</span>
+            </div>
+            <p class="movie-sipnosis">El Perro Samurai: La Leyenda de Kakamucho Hank, un sabueso con mala suerte, se encuentra en un pueblo lleno de gatos que necesitan un héroe que los defienda de un despiadado villano que quiere borrar a su aldea del mapa. Con la ayuda de un maestro que no quiere entrenarlo, nuestro desvalido héroe debe asumir el papel del samurái del pueblo y unirse a los aldeanos para salvar el día.</p>
+        </div> 
+    </div>
+     
+        
+       <div class="movie-stream-container"> 
+        <div class="movie-stream-title">Ver ahora en</div>
+            <h3>Stream</h3>
+            <figure>
+                <img src="./src/img/hbomax.png" alt="logo de">
+            </figure>
+            <h3>Anuncios</h3>
+            <figure>
+                <img src="./src/img/filmzie.png" alt="logo de">
+            </figure>
+            <figure>
+                <img src="./src/img/plutotv.png" alt="logo de">
+            </figure>
+        </div>
+        
+        <div class="movie-container-similar">
+            <h3>Pelicula Similares</h3>
+           <div class="flex-card-pelis"></div>
+            </div>
     </section>
+    
  </main>
 <footer>
     <p>2022 @joselacruz | Todos los derechos reservados.</p>

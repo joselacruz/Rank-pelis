@@ -8,4 +8,12 @@ const header = document.querySelector('.category-container');
 const alternativeContainerTitle = document.querySelector('#alternative-container-title');
 const inputSearch = document.querySelector('#input-search');
 const logoBack = document.querySelector(".alternative-container-logo")
-
+const nav = document.querySelector(`.header`);
+const movieDetail = document.querySelector('.movie-details');
+const main = document.querySelector('.main');
+const movieViewContainer = document.querySelector('.movie-details')
+const movieBackIcon = document.querySelector('.movie-details-icon');
+const movieSection1 = document.querySelector('.movie');
+const movieContainerSimilar = document.querySelector('.movie-container-similar .flex-card-pelis');
+const btnViewMoreUpcoming = document.querySelector('#view-more-upcoming');
+const btnViewMoreTrends = document.querySelector('#view-more-tendencias');

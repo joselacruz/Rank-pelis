@@ -1,0 +1,33 @@
+
+.movie-container-info h2 {
+    margin-block-start: 0;
+}
+
+.header-mobile{
+    display: none;
+}
+
+.main-mobile {
+    margin-block-start: 0px;
+}
+.category-container {   
+font-size: 2.3rem;
+line-height: 3.5rem;
+position: fixed;
+width: 100vw;
+list-style: none;
+background-color: #393E46;
+right: 0;
+left: 0;
+text-align: center;
+top: 0px;
+height: 100vh;
+padding-block-end: 10px;
+z-index: 1;
+
+
+};
+.category-container li {
+    width: 100px;
+    height: 40px;
+}
