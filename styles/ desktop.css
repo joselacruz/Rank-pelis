@@ -1,8 +1,8 @@
 .header{
     display: flex;
-    flex-direction: column;
-    padding-block-end: 10px;
     font-size: 1.8rem;
+    align-items: center;
+    padding-inline-start: 20px;
 }
 .header .header-icon{
     width: 200px;
@@ -13,15 +13,15 @@
     gap: 10px;
 }
 .nav-info-container .nav-icon{
-    background-size: 40px;
-    width: 40px;
-    height: 40px;
+    background-size: 30px;
+    width: 30px;
+    height: 30px;
  
 }
 .header-button-search div span{
-    background-size: 40px;
-    width: 40px;
-    height: 40px;
+    background-size: 30px;
+    width: 30px;
+    height: 30px;
     background-repeat: no-repeat; 
 }
 .header-button-search input{
@@ -40,16 +40,20 @@
     flex-wrap: wrap;
     justify-content: center;
     padding: 13px;
-    gap: 24px;
-    top: 66px;
+    top: 30px;
+    display: flex;
+    opacity: 0.9;
 }
-main{
-    margin-block-start: 171px;
+.category-container li{
+    cursor: pointer;
+    margin-block-start: 7px;
+    width: 110px;
+    border-radius: 5px;
 }
+
 .pelis-container h2{
-    margin-block-start: 45px;
-    font-size: 3rem;
-    line-height: 3.5rem;
+    font-size: 1.8rem;
+    line-height: 2.4rem;
     text-align: center;
 }
 .flex-card-pelis .pelis-card{
@@ -58,12 +62,12 @@ main{
     gap: 30px;
 }
 .pelis-container button{
-    font-size: 2rem;
+    font-size: 1.8rem;
     border-radius: 3px;
-    top: 57px;
-    right: 29px;
-    width: 107px;
-    height: 50px;
+    top: 22px;
+    right: 43px;
+    width: 87px;
+    height: 35px;
 }
 .pelis-card .pelis-card-raking{
     border-radius: 22px;
@@ -80,8 +84,8 @@ main{
     height: 44px;
 }
 .alternative-container h2{
-    font-size: 3rem;
-    line-height: 3.5rem;
+    font-size: 1.8rem;
+    line-height: 2.4rem;
 }
 #movie-poster{
     display: block;
@@ -109,7 +113,7 @@ main{
 }
 .movie-container-info h2{
     font-size: 3rem;
-    line-height: 3.5rem;
+    line-height: 2.4rem;
 }
 .movie-container-info h3{
     font-size: 2rem;
@@ -120,7 +124,7 @@ main{
     line-height: 2.3rem;
     text-align: left;
 }
-.movie-stream-container .movie-stream-title{
+.movie-stream-title{
     width: 150px;
     height: 50px;
     font-size: 1.8rem;
@@ -136,9 +140,26 @@ main{
 .movie-stream-container figure img{
     object-fit: cover;
 }
+.movie-container-similar .flex-card-pelis{
+    gap: 10px;
+}
 .movie-container-similar{
     padding-top: 20px;
     padding-bottom: 50px;
     margin-block-start: 30px;
     background-image: linear-gradient(to left, #393e46, #333841, #2d333b, #282d36, #222831);
+}
+
+.pelis-card:hover {
+    transform: scale(1.05);
+    opacity: 0.8;
+    transition: all 0.3s;
+}
+
+.header .nav-icon:hover{
+    /* filter: invert(67%) sepia(98%) saturate(816%) hue-rotate(349deg) brightness(93%) contrast(87%); */
+    filter: invert(23%) sepia(80%) saturate(1320%) hue-rotate(339deg) brightness(119%) contrast(84%);
+}
+.header-button-search div span:hover {
+    filter: invert(23%) sepia(80%) saturate(1320%) hue-rotate(339deg) brightness(119%) contrast(84%);
 }
