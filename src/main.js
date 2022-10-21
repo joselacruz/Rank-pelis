@@ -18,7 +18,7 @@ const containeUpcoming = document.querySelector(
 const categoryicon = document.querySelector("#category-icon");
 const categoryContainer = document.querySelector(".category-container");
 const templateMovieCard = (imgUrl, raking, id) => {
-  return `<article class="pelis-card">
+  return `<article class="pelis-card ">
 <img src="${imgUrl}" alt="" id ="${id}">
 <div class="pelis-card-raking">
     <span></span>
@@ -40,7 +40,9 @@ async function getMovies(endpoint, tagName, nr) {
 
 async function getTredingMoviesPreview(nr) {
   await getMovies("trending/movie/day", containerTreding, nr);
-  eventClikcByCards(containerTreding);
+  await eventClikcByCards(containerTreding);
+
+  
 }
 
 async function getUpcomin(nr) {

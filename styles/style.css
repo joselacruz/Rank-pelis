@@ -415,3 +415,33 @@ footer p {
 .movie-stream-title:hover {
   background-image: linear-gradient(to top, #7d1706, #8e2413, #a0311e, #b13e2a, #c34a36);
 }
+
+.flex-card-pelis .skeleton {
+  position: relative;
+}
+.flex-card-pelis  .skeleton::before{
+  
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 10;
+  background-size: 200%;
+  animation: skeletons 2s infinite linear;
+  border-radius: 8px;
+}
+  
+
+@keyframes skeletons {
+  0%{
+   background-image: linear-gradient(to left, #eeeeee, #bebec1, #909195, #63666c, #393e46);
+  }
+  50%{
+       background-image: linear-gradient(to center, #eeeeee, #bebec1, #909195, #63666c, #393e46);
+  }
+  100% {
+   background-image: linear-gradient(to right, #eeeeee, #bebec1, #909195, #63666c, #393e46);
+  }
+}

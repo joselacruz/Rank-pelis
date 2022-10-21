@@ -57,7 +57,7 @@
     text-align: center;
 }
 .flex-card-pelis .pelis-card{
-    height: auto;
+    height: 272px;
     width: 180px;
     gap: 30px;
 }
@@ -154,6 +154,7 @@
     transform: scale(1.05);
     opacity: 0.8;
     transition: all 0.3s;
+   
 }
 
 .header .nav-icon:hover{
@@ -163,3 +164,4 @@
 .header-button-search div span:hover {
     filter: invert(23%) sepia(80%) saturate(1320%) hue-rotate(339deg) brightness(119%) contrast(84%);
 }
+
