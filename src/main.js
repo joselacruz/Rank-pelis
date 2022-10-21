@@ -8,6 +8,17 @@ const api = axios.create({
   },
 });
 
+//Utils
+
+const lazyLoader = new IntersectionObserver((entries) => {
+  entries.forEach((entry) => {
+    if (entry.isIntersecting) {
+      const url = entry.target.getAttribute("data-img");
+      entry.target.setAttribute("src", url);
+    }
+  });
+});
+
 const URLIMG = "https://image.tmdb.org/t/p/w500";
 const containerTreding = document.querySelector(
   ".pelis-container-tendencias .flex-card-pelis"
@@ -19,7 +30,7 @@ const categoryicon = document.querySelector("#category-icon");
 const categoryContainer = document.querySelector(".category-container");
 const templateMovieCard = (imgUrl, raking, id) => {
   return `<article class="pelis-card ">
-<img src="${imgUrl}" alt="" id ="${id}">
+<img data-img="${imgUrl}" alt="" id ="${id}">
 <div class="pelis-card-raking">
     <span></span>
     <p>${raking}</p>
@@ -36,18 +47,17 @@ async function getMovies(endpoint, tagName, nr) {
     return templateMovieCard(movieUrl, movieRaking, movie.id);
   });
   tagName.innerHTML = cards.join("");
+  addLazyloader(tagName);
 }
 
 async function getTredingMoviesPreview(nr) {
   await getMovies("trending/movie/day", containerTreding, nr);
   await eventClikcByCards(containerTreding);
-
-  
 }
 
 async function getUpcomin(nr) {
   await getMovies("movie/upcoming", containeUpcoming, nr);
-  eventClikcByCards(containeUpcoming);
+  await eventClikcByCards(containeUpcoming);
 }
 
 async function getCategorys() {
@@ -79,6 +89,7 @@ async function getMoviesByCategory(id, name) {
   alternativeContainerTitle.textContent = name;
   alternativeContainerPelis.innerHTML = cards.join("");
   eventClikcByCards(alternativeContainerPelis);
+  addLazyloader(alternativeContainerPelis);
 }
 
 async function getMoviesBySearch(query, titleSearch) {
@@ -90,6 +101,7 @@ async function getMoviesBySearch(query, titleSearch) {
   alternativeContainerTitle.textContent = titleSearch;
   alternativeContainerPelis.innerHTML = cards.join("");
   eventClikcByCards(alternativeContainer);
+  addLazyloader(alternativeContainer);
 }
 
 async function getMovieById(id) {
@@ -121,7 +133,6 @@ async function getMovieById(id) {
        <p class="movie-sipnosis">${sipnosis}</p>`;
   movieSection1.innerHTML = templateViewMovie;
   getSimiliarsbyId(id);
-
 }
 
 async function getSimiliarsbyId(id) {
@@ -131,52 +142,48 @@ async function getSimiliarsbyId(id) {
 
   movieContainerSimilar.innerHTML = similarMovies.join("");
   eventClikcByCards(movieContainerSimilar);
+  addLazyloader(movieContainerSimilar);
 }
 
 async function getVideoProviders(id) {
-   const { data } = await api(`movie/${id}/watch/providers`);
-   const movieProviders = data.results.VE||false;;
-   const movieStream = movieProviders?.flatrate||false;
-   const movieBuy = movieProviders?.buy||false;;
-   const movieAds = movieProviders?.ads||false;;
-   const movieRent = movieProviders?.rent||false;;
-   const movieLink = movieProviders?.link||false;;
+  const { data } = await api(`movie/${id}/watch/providers`);
+  const movieProviders = data.results.VE || false;
+  const movieStream = movieProviders?.flatrate || false;
+  const movieBuy = movieProviders?.buy || false;
+  const movieAds = movieProviders?.ads || false;
+  const movieRent = movieProviders?.rent || false;
+  const movieLink = movieProviders?.link || false;
 
-   if (movieProviders) {
-   htmlWrite(movieAds,"Gratis con anuncios");
-   htmlWrite(movieStream,"Stream");
-   htmlWrite(movieBuy,"Comprar");
-   htmlWrite(movieRent,"Alquilar");
-   } 
-   
-   else {
-      movieStreamContainer.innerHTML = '<h3 style="padding-top:40px;padding-bottom: 30px;color:#ff5722">No hay Fuentes de videos disponibles</h3>';
-      
-   }
+  if (movieProviders) {
+    htmlWrite(movieAds, "Gratis con anuncios");
+    htmlWrite(movieStream, "Stream");
+    htmlWrite(movieBuy, "Comprar");
+    htmlWrite(movieRent, "Alquilar");
+  } else {
+    movieStreamContainer.innerHTML =
+      '<h3 style="padding-top:40px;padding-bottom: 30px;color:#ff5722">No hay Fuentes de videos disponibles</h3>';
+  }
 
-   function htmlWrite(obj,title) {
-      if(obj) {
-         movieStreamContainer.innerHTML += `<h3>${title}</h3>`;
-         obj.map((item) => {
-            movieStreamContainer.innerHTML   += `
+  function htmlWrite(obj, title) {
+    if (obj) {
+      movieStreamContainer.innerHTML += `<h3>${title}</h3>`;
+      obj.map((item) => {
+        movieStreamContainer.innerHTML += `
             <figure>
                 <img src="https://image.tmdb.org/t/p/w300/${item.logo_path}" alt="logo de">
-            </figure>`
-         })
-        }
-        const eventMovieIconProviders = movieStreamContainer.querySelectorAll("img");
-        eventMovieIconProviders.forEach((provider) => {
-         provider.addEventListener("click",() => {
-            const [url, _,] = movieLink.split('?');
-            window.open(url);
-           })
-        })
-   }
-      
-   
-
-  
-};
+            </figure>`;
+      });
+    }
+    const eventMovieIconProviders =
+      movieStreamContainer.querySelectorAll("img");
+    eventMovieIconProviders.forEach((provider) => {
+      provider.addEventListener("click", () => {
+        const [url, _] = movieLink.split("?");
+        window.open(url);
+      });
+    });
+  }
+}
 function obtain(result) {
   return result.map((movie) => {
     const movieUrl = `${URLIMG}/${movie.poster_path}`;
@@ -188,11 +195,18 @@ function obtain(result) {
 function eventClikcByCards(tagName) {
   const eventCards = tagName.querySelectorAll("article");
   return eventCards.forEach((cards) => {
-    cards.addEventListener("click",   () => {
-       location.hash = `#movie=${cards.childNodes[1].id}`;
-       movieStreamContainer.innerHTML = ""; 
+    cards.addEventListener("click", () => {
+      location.hash = `#movie=${cards.childNodes[1].id}`;
+      movieStreamContainer.innerHTML = "";
     });
   });
-  
 }
 
+function addLazyloader(tagName) {
+  const contenedor = tagName.querySelectorAll("article");
+  return contenedor.forEach((cards) => {
+    const obtainImg = cards.childNodes[1];
+    lazyLoader.observe(obtainImg);
+    console.log(obtainImg);
+  });
+}

@@ -134,7 +134,6 @@ btnViewMoreUpcoming.addEventListener("click", async () => {
     if (btnViewMoreUpcoming.textContent == 'ver mas') {
         await getUpcomin(20);
         btnViewMoreUpcoming.textContent = 'ver menos';
-        window.scroll(0, 300);
     }
     else {
         getUpcomin(6);
