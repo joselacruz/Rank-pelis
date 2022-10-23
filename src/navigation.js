@@ -1,165 +1,160 @@
-window.addEventListener('DOMContentLoaded', navigator, false);
-window.addEventListener('hashchange', navigator, false);
-logoBack.addEventListener("click", clickLogoBack)
+let page = 1;
+let maxPage;
+let infinityScroll;
+
+window.addEventListener("DOMContentLoaded", navigator, false);
+window.addEventListener("hashchange", navigator, false);
+window.addEventListener("scroll", infinityScroll, { passive: false });
+logoBack.addEventListener("click", clickLogoBack);
 
 function navigator() {
-    console.log({ location });
-    if (location.hash.startsWith('#home')) {
-        homePage();
-        getTredingMoviesPreview(6);
-        getUpcomin(6);
+  if (infinityScroll) {
+    window.removeEventListener("scroll", infinityScroll);
+    infinityScroll = undefined;
+  }
+  console.log({ location });
+  if (location.hash.startsWith("#home")) {
+    homePage();
+    getTredingMoviesPreview(6);
+    getUpcomin(6);
+  } else if (location.hash.startsWith("#search=")) {
+    searchPage();
+  } else if (location.hash.startsWith("#movie=")) {
+    moviePage();
+  } else if (location.hash.startsWith("#category=")) {
+    categoryPage();
+  } else {
+    homePage();
+    getUpcomin();
+    getTredingMoviesPreview();
+  }
 
-    }
-    else if (location.hash.startsWith('#search=')) {
-        searchPage();
+  window.scroll(0, 0);
+  getCategorys();
 
-    }
-    else if (location.hash.startsWith('#movie=')) {
-        moviePage();
-    }
-    else if (location.hash.startsWith('#category=')) {
-        categoryPage();
-    }
-    else {
-        homePage();
-        getUpcomin();
-        getTredingMoviesPreview();
-    }
-
-    window.scroll(0, 0)
-    getCategorys();
+  if (infinityScroll) {
+    window.addEventListener("scroll", infinityScroll, { passive: false });
+    infinityScroll = undefined;
+  }
 }
 
 function homePage() {
-    containerPelisUpcoming.classList.remove('inactive');
-    containerPelisTreding.classList.remove('inactive');
-    alternativeContainer.classList.add('inactive');
-    movieDetail.classList.add('inactive');
-    nav.classList.remove('header-mobile');
-    main.classList.remove('main-mobile');
+  containerPelisUpcoming.classList.remove("inactive");
+  containerPelisTreding.classList.remove("inactive");
+  alternativeContainer.classList.add("inactive");
+  movieDetail.classList.add("inactive");
+  nav.classList.remove("header-mobile");
+  main.classList.remove("main-mobile");
 }
 
 function searchPage() {
+  alternativeContainer.classList.remove("inactive");
+  containerPelisUpcoming.classList.add("inactive");
+  containerPelisTreding.classList.add("inactive");
+  movieDetail.classList.add("inactive");
+  nav.classList.remove("header-mobile");
+  main.classList.remove("main-mobile");
 
-    alternativeContainer.classList.remove('inactive');
-    containerPelisUpcoming.classList.add('inactive');
-    containerPelisTreding.classList.add('inactive');
-    movieDetail.classList.add('inactive');
-    nav.classList.remove('header-mobile');
-    main.classList.remove('main-mobile');
-
-    const [_, query] = location.hash.split('=');
-    logoBack.classList.remove('inactive');
-    getMoviesBySearch(query, `Resultados para: ${query.replaceAll("/", " ")}`);
-    
-
+  const [_, query] = location.hash.split("=");
+  logoBack.classList.remove("inactive");
+  getMoviesBySearch(query, `Resultados para: ${query.replaceAll("/", " ")}`);
+  infinityScroll = viewInfinityResults(
+    "search/movie",{query}
+  );
 }
 
 function moviePage() {
-    movieViewContainer.classList.remove('inactive');
-    alternativeContainer.classList.add('inactive');
-    containerPelisUpcoming.classList.add('inactive');
-    containerPelisTreding.classList.add('inactive');
-    main.classList.add('main-mobile');
-    nav.classList.add('header-mobile');
+  movieViewContainer.classList.remove("inactive");
+  alternativeContainer.classList.add("inactive");
+  containerPelisUpcoming.classList.add("inactive");
+  containerPelisTreding.classList.add("inactive");
+  main.classList.add("main-mobile");
+  nav.classList.add("header-mobile");
 
-    const [_, movieId] = location.hash.split('=');
-    getMovieById(movieId);
-
-
+  const [_, movieId] = location.hash.split("=");
+  getMovieById(movieId);
 }
 
 function categoryPage() {
+  alternativeContainer.classList.remove("inactive");
+  containerPelisUpcoming.classList.add("inactive");
+  containerPelisTreding.classList.add("inactive");
+  movieDetail.classList.add("inactive");
+  nav.classList.remove("header-mobile");
+  main.classList.remove("main-mobile");
+  logoBack.classList.remove("inactive");
 
-    alternativeContainer.classList.remove('inactive');
-    containerPelisUpcoming.classList.add('inactive');
-    containerPelisTreding.classList.add('inactive');
-    movieDetail.classList.add('inactive');
-    nav.classList.remove('header-mobile');
-    main.classList.remove('main-mobile');
-    logoBack.classList.remove('inactive');
+  const [_, categoryDAta] = location.hash.split("=");
+  const [categoryId, categoryName] = categoryDAta.split("-");
+  const nameCategoryFinal = categoryName.split("%20").join(" ");
+  getMoviesByCategory(categoryId, nameCategoryFinal);
 
-    const [_, categoryDAta] = location.hash.split('=');
-    const [categoryId, categoryName] = categoryDAta.split('-');
-    const nameCategoryFinal = categoryName.split("%20").join(" ");
-    getMoviesByCategory(categoryId, nameCategoryFinal);
- 
-
+  infinityScroll = viewInfinityResults(
+    "/discover/movie?with_genres=",
+    { with_genres: categoryId },
+    categoryId
+  );
 }
 
 
 iconHome.addEventListener("click", () => {
-    location.hash = "#home";
+  location.hash = "#home";
 });
 
 iconSearch.addEventListener("click", clikSearch);
 
-
 function clikSearch() {
-    if (inputSearch.value == "") {
-        alert("Nada que Buscar");
-    }
-    else {
-        location.hash = `#search=${inputSearch.value.replaceAll(" ", "/")}`
-    }
-
+  if (inputSearch.value == "") {
+    alert("Nada que Buscar");
+  } else {
+    location.hash = `#search=${inputSearch.value.replaceAll(" ", "/")}`;
+    location.reload();
+  }
 }
 inputSearch.addEventListener("keyup", (event) => {
-    if (event.keyCode == 13) {
-        clikSearch();
-    }
+  if (event.keyCode == 13) {
+    clikSearch();
+  }
 });
-
 
 
 function clickLogoBack() {
-    history.back();
+  history.back();
 }
-//  var mediaqueryList = window.matchMedia("(max-width: 700px)");
-//  mediaqueryList.addListener( function(EventoMediaQueryList) {
-//       console.log("se ejecuta")
-//  });
 
 movieBackIcon.addEventListener("click", () => {
-
-    history.back();
-
-
+  history.back();
 });
 
 btnViewMoreUpcoming.addEventListener("click", async () => {
-
-
-
-    if (btnViewMoreUpcoming.textContent == 'ver mas') {
-        await getUpcomin(20);
-        btnViewMoreUpcoming.textContent = 'ver menos';
-    }
-    else {
-        getUpcomin(6);
-        btnViewMoreUpcoming.textContent = 'ver mas';
-    }
+  if (btnViewMoreUpcoming.textContent == "ver mas") {
+    await getUpcomin(20);
+    btnViewMoreUpcoming.textContent = "ver menos";
+  } else {
+    getUpcomin(6);
+    btnViewMoreUpcoming.textContent = "ver mas";
+  }
 });
 
 btnViewMoreTrends.addEventListener("click", () => {
-    if (btnViewMoreTrends.textContent == 'ver mas') {
-        getTredingMoviesPreview(20);
-        btnViewMoreTrends.textContent = 'ver menos';
-    }
-    else {
-        getTredingMoviesPreview(6);
-        btnViewMoreTrends.textContent = 'ver mas';
-    }
-
+  if (btnViewMoreTrends.textContent == "ver mas") {
+    getTredingMoviesPreview(20);
+    btnViewMoreTrends.textContent = "ver menos";
+  } else {
+    getTredingMoviesPreview(6);
+    btnViewMoreTrends.textContent = "ver mas";
+  }
 });
+
+
 btnObtainVideo.addEventListener("click", function btn(e) {
-
-    const [_, movieId] = location.hash.split('=');
-    getVideoProviders(movieId);
-    movieStreamContainer.innerHTML = "";
-
-
+  const [_, movieId] = location.hash.split("=");
+  getVideoProviders(movieId);
+  movieStreamContainer.innerHTML = "";
 });
+
+
+
 //al hacer scroll cambiamos el opacity al head NO;
 // window.onscroll = function (){
 //     // Obtenemos la posicion del scroll en pantall
@@ -174,3 +169,7 @@ btnObtainVideo.addEventListener("click", function btn(e) {
 //         nav.style.opacity = "1";
 //     }
 // }
+//  var mediaqueryList = window.matchMedia("(max-width: 700px)");
+//  mediaqueryList.addListener( function(EventoMediaQueryList) {
+//       console.log("se ejecuta")
+//  });
