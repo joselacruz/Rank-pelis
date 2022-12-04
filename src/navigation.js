@@ -15,8 +15,6 @@ function navigator() {
   console.log({ location });
   if (location.hash.startsWith("#home")) {
     homePage();
-    getTredingMoviesPreview(6);
-    getUpcomin(6);
   } else if (location.hash.startsWith("#search=")) {
     searchPage();
   } else if (location.hash.startsWith("#movie=")) {
@@ -25,8 +23,6 @@ function navigator() {
     categoryPage();
   } else {
     homePage();
-    getUpcomin();
-    getTredingMoviesPreview();
   }
 
   window.scroll(0, 0);
@@ -45,6 +41,10 @@ function homePage() {
   movieDetail.classList.add("inactive");
   nav.classList.remove("header-mobile");
   main.classList.remove("main-mobile");
+  containerFavorites.classList.remove("inactive");
+  getTredingMoviesPreview(6);
+  getUpcomin(6);
+  getFavoriteMovie();
 }
 
 function searchPage() {
@@ -54,10 +54,22 @@ function searchPage() {
   movieDetail.classList.add("inactive");
   nav.classList.remove("header-mobile");
   main.classList.remove("main-mobile");
+  containerFavorites.classList.add("inactive");
 
   const [_, query] = location.hash.split("=");
   logoBack.classList.remove("inactive");
-  getMoviesBySearch(query, `Resultados para: ${query.replaceAll("/", " ")}`);
+
+  switch(idioma.language) {
+    case "es":
+    getMoviesBySearch(query, `Resultados para: ${query.replaceAll("/", " ")}`);
+    break;
+    case "en":
+      getMoviesBySearch(query, `Results for: ${query.replaceAll("/", " ")}`);
+      break;
+    case "fr":
+    getMoviesBySearch(query, `Résultats pour: ${query.replaceAll("/", " ")}`);
+    break;
+  }
   infinityScroll = viewInfinityResults(
     "search/movie",{query}
   );
@@ -70,24 +82,27 @@ function moviePage() {
   containerPelisTreding.classList.add("inactive");
   main.classList.add("main-mobile");
   nav.classList.add("header-mobile");
-
+  containerFavorites.classList.add("inactive");
   const [_, movieId] = location.hash.split("=");
   getMovieById(movieId);
 }
 
 function categoryPage() {
-  alternativeContainer.classList.remove("inactive");
   containerPelisUpcoming.classList.add("inactive");
   containerPelisTreding.classList.add("inactive");
+  alternativeContainer.classList.remove("inactive");
   movieDetail.classList.add("inactive");
   nav.classList.remove("header-mobile");
   main.classList.remove("main-mobile");
   logoBack.classList.remove("inactive");
+  containerFavorites.classList.add("inactive");
+  
 
   const [_, categoryDAta] = location.hash.split("=");
   const [categoryId, categoryName] = categoryDAta.split("-");
   const nameCategoryFinal = categoryName.split("%20").join(" ");
   getMoviesByCategory(categoryId, nameCategoryFinal);
+
 
   infinityScroll = viewInfinityResults(
     "/discover/movie?with_genres=",

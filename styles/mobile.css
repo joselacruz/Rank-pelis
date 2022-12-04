@@ -31,3 +31,10 @@ z-index: 1;
     width: 100px;
     height: 40px;
 }
+.language-container{
+    gap: 14px;
+}
+
+.language-container:hover  #languages{
+    background-color: #393e46;
+}

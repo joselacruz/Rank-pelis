@@ -137,6 +137,31 @@ header .header-nav .nav-info-container {
 .header-button-search:hover div {
   border: 1px solid var(--white-gray);
 }
+.language-container{
+  position: absolute;
+  right: 2px;
+  top: 2px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  cursor: pointer;
+
+}
+.language-container li {
+  list-style: none;
+}
+.language-container li:hover{
+  color: #ffaf00;
+}
+.language-container:hover  #languages{
+  opacity: 1;
+  transition-delay: 3ms;
+  transform: translate(1);
+}
+#flag{
+  width: 40px;
+}
 
 main {
   width: 100%;
@@ -157,11 +182,11 @@ main {
   font-size: 1.4rem;
 }
 
-.pelis-container button {
+.pelis-container button:nth-child(2) {
    background-color: var(--primary-button);
   color: var(--white-gray);
   border: none;
-  width: 68px;
+  min-width: 68px;
   height: 23px;
   filter: drop-shadow(2px 4px 4px rgba(1, 1, 1, 0.83));
   position: absolute;
@@ -222,6 +247,34 @@ main {
   font-weight: 700;
   font-size: 2rem;
   -webkit-text-stroke: 0.3px black;
+}
+
+ .btn-movie {
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  border-radius: 30px;
+  background-color:var(--primary-button);
+  right: 7px;
+  bottom: 5px;
+  padding: 0;
+  margin: 0;
+  border: none;
+}
+.btn-movie::before {
+  content: '💙';
+  font-size: 22px;
+  color: white;
+  cursor: pointer;
+}
+.btn-movie--liked {
+  background-color: var(--secondary-gray);
+  background-color: #efd4cf;
+  box-shadow: 0px 0px 10px 2px var(--primary-button);
+}
+.btn-movie--liked::before{
+  color: var(--primary-button);
+
 }
 
 footer {
@@ -341,7 +394,7 @@ footer p {
 .movie-stream-title {
   background-color: var(--primary-button);
   width: 136px;
-  height: 44px;
+  min-height: 44px;
   margin: 10px auto 20px;
   border-radius: 10px;
   padding: 11px;
@@ -403,13 +456,14 @@ footer p {
 
 .hiden {
   opacity: 0;
+
 }
 .inactive {
   display: none;
   transform: scale(0);
 }
 
-.pelis-container button:hover {
+.pelis-container button:nth-child(2):hover {
   background-image: linear-gradient(to top, #7d1706, #8e2413, #a0311e, #b13e2a, #c34a36);
 }
 

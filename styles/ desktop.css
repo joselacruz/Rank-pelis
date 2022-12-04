@@ -61,12 +61,12 @@
     width: 180px;
     gap: 30px;
 }
-.pelis-container button{
+.pelis-container button:nth-child(2){
     font-size: 1.8rem;
     border-radius: 3px;
     top: 22px;
     right: 43px;
-    width: 87px;
+    width: 100px;
     height: 35px;
 }
 .pelis-card .pelis-card-raking{

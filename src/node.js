@@ -5,6 +5,8 @@ const containerPelisUpcoming = document.querySelector(
 const containerPelisTreding = document.querySelector(
   ".pelis-container-tendencias"
 );
+const containerFavorites = document.querySelector('.pelis-container-favorites');
+const containerPelisFavorites = document.querySelector('.pelis-container-favorites .flex-card-pelis ');
 const alternativeContainer = document.querySelector(".alternative-container");
 const alternativeContainerPelis = document.querySelector(
   ".alternative-container .flex-card-pelis"
@@ -30,5 +32,12 @@ const btnViewMoreUpcoming = document.querySelector("#view-more-upcoming");
 const btnViewMoreTrends = document.querySelector("#view-more-tendencias");
 const btnObtainVideo = document.querySelector(".movie-stream-title");
 const movieStreamContainer = document.querySelector(".movie-stream-container");
+const titleSimilarMovies = document.querySelector(".movie-container-similar").querySelectorAll("h3")[0];
+
 
 header.classList.add("inactive");
+
+const selectLanguage = document.querySelector("#languages");
+const languageContainer = document.querySelector('.language-container');
+const languageCurrent = languageContainer.querySelectorAll("span");
+const flagLanguage = document.querySelector("#flag");

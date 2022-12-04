@@ -1,3 +1,5 @@
+//Data
+let idioma = JSON.parse(localStorage.getItem('idiomaSelect'))||{"language": "es","flag": "src/img/flag-spain.svg"};
 const api = axios.create({
   baseURL: "https://api.themoviedb.org/3/",
   headers: {
@@ -5,8 +7,37 @@ const api = axios.create({
   },
   params: {
     api_key: API_KEY,
+    language:idioma?.language,
   },
 });
+
+
+//
+function favoritesMoviesList() {
+  const item = JSON.parse(localStorage.getItem('favorite_movie'));
+  let movies;
+  if(item){
+    movies = item;
+  }
+  else {
+    movies = {};
+  }
+  return movies;
+};
+
+function favoriteMovie(movie) {
+
+  const favoritesMovies = favoritesMoviesList();
+  console.log(favoritesMovies);
+  if(favoritesMovies[movie.id]){
+  favoritesMovies[movie.id] = undefined;
+  }
+  else{
+    favoritesMovies[movie.id] = movie;
+  }
+  const rx = localStorage.setItem('favorite_movie',JSON.stringify(favoritesMovies));
+
+}
 
 //Utils
 
@@ -35,6 +66,7 @@ const templateMovieCard = (imgUrl, raking, id) => {
     <span></span>
     <p>${raking}</p>
 </div>
+<button class="btn-movie"> </button>
 </article> `;
 };
 
@@ -48,6 +80,7 @@ async function getMovies(endpoint, tagName, nr) {
   });
   tagName.innerHTML = cards.join("");
   addLazyloader(tagName);
+
 }
 
 async function getTredingMoviesPreview(nr) {
@@ -70,7 +103,8 @@ async function getCategorys() {
   const eventCategorys = header.querySelectorAll("li");
   eventCategorys.forEach((li) => {
     li.addEventListener("click", async(event) => {
-      location.hash = `#category=${li.id}-${li.textContent}`;
+      const categorySelect = normalize (li.textContent);
+      location.hash = `#category=${li.id}-${categorySelect}`;
       categoryContainer.classList.add("inactive");
       await location.reload();
       page = await page - page;
@@ -88,13 +122,13 @@ async function getMoviesByCategory(id, name) {
     params: { with_genres: id },
   });
   maxPage = data.total_pages;
-  console.log(maxPage);
   const movies = data.results;
   const cards = obtain(movies);
   alternativeContainerTitle.textContent = name;
-  alternativeContainerPelis.innerHTML = cards.join("");
+   alternativeContainerPelis.innerHTML =  cards.join("");
   eventClikcByCards(alternativeContainerPelis);
   addLazyloader(alternativeContainerPelis);
+  console.log(name);
  
 }
 
@@ -165,13 +199,47 @@ async function getVideoProviders(id) {
   const movieLink = movieProviders?.link || false;
 
   if (movieProviders) {
-    htmlWrite(movieAds, "Gratis con anuncios");
-    htmlWrite(movieStream, "Stream");
-    htmlWrite(movieBuy, "Comprar");
-    htmlWrite(movieRent, "Alquilar");
+   switch(idioma?.language){
+    case "es":
+      htmlWrite(movieAds, "Gratis con anuncios");
+      htmlWrite(movieStream, "Stream");
+      htmlWrite(movieBuy, "Comprar");
+      htmlWrite(movieRent, "Alquilar");
+      break;
+      case "en":
+        htmlWrite(movieAds, "Free with ads");
+        htmlWrite(movieStream, "streaming");
+        htmlWrite(movieBuy, "Buy");
+        htmlWrite(movieRent, "Rent");
+      break;
+        case "fr":
+          htmlWrite(movieAds, "Gratuit avec publicités");
+          htmlWrite(movieStream, "Flux");
+          htmlWrite(movieBuy, "Acheter");
+          htmlWrite(movieRent, "Location");
+        break;
+   }
   } else {
-    movieStreamContainer.innerHTML =
-      '<h3 style="padding-top:40px;padding-bottom: 30px;color:#ff5722">No hay Fuentes de videos disponibles</h3>';
+    switch(idioma?.language){
+      case "es":
+        movieStreamContainer.innerHTML =
+        '<h3 style="padding-top:40px;padding-bottom: 30px;color:#ff5722">No hay Fuentes de videos disponibles</h3>'
+      break;
+
+      case "en": 
+      movieStreamContainer.innerHTML =
+      '<h3 style="padding-top:40px;padding-bottom: 30px;color:#ff5722">No video sources available</h3>';
+      break;
+
+      case "fr":
+        movieStreamContainer.innerHTML =
+        '<h3 style="padding-top:40px;padding-bottom: 30px;color:#ff5722">Aucune source vidéo disponible</h3>';
+      break;
+     
+    }
+   
+
+   
   }
 
   function htmlWrite(obj, title) {
@@ -207,12 +275,32 @@ function obtain(result) {
 }
 
 function eventClikcByCards(tagName) {
+  
   const eventCards = tagName.querySelectorAll("article");
   return eventCards.forEach((cards) => {
-    cards.addEventListener("click", () => {
+    cards.addEventListener("click", (e) => {
+      
+      console.log(e.target.tagName);
+      if(e.target.tagName === 'IMG') {
       location.hash = `#movie=${cards.childNodes[1].id}`;
-      movieStreamContainer.innerHTML = "";
+      movieStreamContainer.innerHTML = "";}
+      else if(e.target.tagName === 'BUTTON') {
+        e.target.classList.toggle('btn-movie--liked');
+    
+        const idimgFavorite = cards.querySelector('img').id*1;
+        const urlImgFavorite = cards.querySelector('img').src;
+        const  rankImgFavorite = cards.querySelector('p').textContent;
+        const obj ={id:idimgFavorite, url: urlImgFavorite, rank:rankImgFavorite};
+
+        favoriteMovie(obj);
+        getFavoriteMovie();
+      }
     });
+
+    //recordar si ya esta en favorito y conservar la clase del botoncito ❤️ 
+    const bt = cards.querySelector('button');
+    const id = cards.querySelector('img').id;
+    favoritesMoviesList()[id]&&bt.classList.add("btn-movie--liked");
   });
 }
 
@@ -259,9 +347,30 @@ return async function () {
     addLazyloader(alternativeContainerPelis);
     console.log("another page", page,maxPage);
     imgError(alternativeContainer);
+    return
   }
 }
-  
+
+ 
 }
 
+function getFavoriteMovie(){
+  
+  const likedMovies = favoritesMoviesList();
+  const moviesArray = Object.values(likedMovies);
 
+  if(moviesArray.length > 0) {
+    containerFavorites.classList.remove("inactive");
+    const likeds = moviesArray.map((liked) => {
+      return templateMovieCard(liked.url, liked.rank, liked.id);
+      });
+      containerPelisFavorites.innerHTML = likeds;
+      addLazyloader(containerPelisFavorites);
+      eventClikcByCards(containerPelisFavorites);
+  }
+  else{
+    containerFavorites.classList.add("inactive");
+  }
+  
+
+}
